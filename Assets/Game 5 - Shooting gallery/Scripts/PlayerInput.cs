@@ -20,7 +20,9 @@ public class PlayerInput : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			Rigidbody2D clone;
 			clone = (Rigidbody2D)Instantiate (projectile, transform.position, Quaternion.identity);
-			clone.velocity = Spawnpoint.TransformDirection (Vector2.up * 10);
+            clone.tag = "neutron";
+            clone.velocity = Spawnpoint.TransformDirection (Vector2.up * 10);
+            
 		}
 			
 		if (Input.GetKey("escape"))
@@ -67,7 +69,7 @@ public class PlayerInput : MonoBehaviour {
 		if (gameObject.tag == "neutron")
 		    Destroy (gameObject);
 
-		if (gameObject.tag == "explosion")
+		else if (gameObject.tag == "explosion")
 			Destroy (gameObject);
 	}		
 }
