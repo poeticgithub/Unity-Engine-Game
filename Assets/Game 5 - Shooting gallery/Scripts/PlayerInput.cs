@@ -9,31 +9,48 @@ public class PlayerInput : MonoBehaviour {
 	Rigidbody2D clone2;
 	bool inc1 = false;
 	bool inc2 = false;
-
+    
+        
 	// Use this for initialization
 	void Start () {
+
+        GameManager.gm.displayShots();
 
 	}
 
 		// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			Rigidbody2D clone;
+	void Update ()
+    {
+        GameManager.gm.displayShots();
+
+
+        if (Input.GetKeyDown (KeyCode.Space) && gameObject.name == "PlayerCharacter" && GameManager.gm.shots > 0)
+        {
+            GameManager.gm.shots--;
+
+           	Rigidbody2D clone;
 			clone = (Rigidbody2D)Instantiate (projectile, transform.position, Quaternion.identity);
             clone.tag = "neutron";
             clone.velocity = Spawnpoint.TransformDirection (Vector2.up * 10);
-            
-		}
+   		}
+        
+        if (gameObject.tag == "neutron" && gameObject.transform.position.y > 10 || gameObject.tag == "neutron" && gameObject.transform.position.y < -15 )
+            Destroy(gameObject);
 			
 		if (Input.GetKey("escape"))
 			Application.Quit();
+
 	}
 
 	void OnTriggerEnter2D (Collider2D col){
-		Debug.Log("collision name = " + col.gameObject.tag);
+		//Debug.Log("collision name = " + col.gameObject.tag);
 
-		if (col.gameObject.tag == "enemy" && gameObject.tag == "neutron") {
-			col.gameObject.GetComponent<SpriteRenderer> ().color = Color.green;
+		if (col.gameObject.tag == "enemy" && gameObject.tag == "neutron")
+        {
+            GameManager.gm.shots++;
+
+            col.gameObject.GetComponent<SpriteRenderer> ().color = Color.green;
+
 			Destroy (gameObject);
 		
 			clone2 = (Rigidbody2D)Instantiate(explosion, transform.position, Quaternion.identity);
@@ -44,14 +61,16 @@ public class PlayerInput : MonoBehaviour {
 			GameManager.gm.score = GameManager.gm.score + 1;
 			GameManager.gm.displayScore ();
         
-			if (GameManager.gm.score > 5 && inc1 == false) {
-				inc1 = true;
-				Respawn3.resp3.setSpeed += -0.01f;
-			}
-			if ((GameManager.gm.score > 10) && inc2 == false) {
-				inc2 = true;
-				Respawn3.resp3.setSpeed += -0.01f;
-			}
+			//if (GameManager.gm.score > 5 && inc1 == false)
+   //         {
+			//	inc1 = true;
+			//	Respawn3.resp3.setSpeed += -0.01f;
+			//}
+			//if ((GameManager.gm.score > 10) && inc2 == false)
+   //         {
+			//	inc2 = true;
+			//	Respawn3.resp3.setSpeed += -0.01f;
+			//}
         }
 
 		if (col.gameObject.tag == "wrong" && gameObject.tag == "neutron") {
@@ -64,8 +83,18 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
+    //void incrementShot()
+    //{
+    //    shots = 1;
+    //}
 
-	void OnBecameInvisible () {
+    //void decrementShot()
+    //{
+    //    shots--;
+    //}
+
+	void OnBecameInvisible ()
+    {
 		if (gameObject.tag == "neutron")
 		    Destroy (gameObject);
 
