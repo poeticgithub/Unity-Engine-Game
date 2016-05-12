@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
                 answers[z].text = results[z].ToString();
             }
 
-            int index = rnd.Next(0, 5);
+            int index = rnd.Next(0, 6);
             results[index] = result;
             tags[index] = "enemy";
 
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
                 answers[z].text = results[z].ToString();
             }
 
-            int index = rnd.Next(0, 5);
+            int index = rnd.Next(0, 6);
             results[index] = result;
             tags[index] = "enemy";
 
@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
                 answers[z].text = results[z].ToString();
             }
 
-            int index = rnd.Next(0, 5);
+            int index = rnd.Next(0, 6);
             results[index] = result;
             tags[index] = "enemy";
 

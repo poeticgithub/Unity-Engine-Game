@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour {
             clone.velocity = Spawnpoint.TransformDirection (Vector2.up * 10);
    		}
         
-        if (gameObject.tag == "neutron" && gameObject.transform.position.y > 10 || gameObject.tag == "neutron" && gameObject.transform.position.y < -15 )
+        if (gameObject.tag == "neutron" && gameObject.transform.position.y > 5 || gameObject.tag == "neutron" && gameObject.transform.position.y < -10 )
             Destroy(gameObject);
 			
 		if (Input.GetKey("escape"))
@@ -61,16 +61,16 @@ public class PlayerInput : MonoBehaviour {
 			GameManager.gm.score = GameManager.gm.score + 1;
 			GameManager.gm.displayScore ();
         
-			//if (GameManager.gm.score > 5 && inc1 == false)
-   //         {
-			//	inc1 = true;
-			//	Respawn3.resp3.setSpeed += -0.01f;
-			//}
-			//if ((GameManager.gm.score > 10) && inc2 == false)
-   //         {
-			//	inc2 = true;
-			//	Respawn3.resp3.setSpeed += -0.01f;
-			//}
+			if (GameManager.gm.score > 5 && inc1 == false)
+          {
+			   inc1 = true;
+			   Respawn3.resp3.setSpeed += -0.001f;
+			}
+			if ((GameManager.gm.score > 10) && inc2 == false)
+          {
+	         	inc2 = true;
+			Respawn3.resp3.setSpeed += -0.001f;
+			}
         }
 
 		if (col.gameObject.tag == "wrong" && gameObject.tag == "neutron") {
@@ -79,9 +79,23 @@ public class PlayerInput : MonoBehaviour {
 			Destroy (gameObject);
 
 			GameManager.gm.score--;
+            if (GameManager.gm.shots > 0)
+            GameManager.gm.shots--;
 			GameManager.gm.displayScore ();
 		}
-	}
+
+
+        if (col.gameObject.tag == "wrong" && gameObject.tag == "Player")
+        {
+            col.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            wrongAnswer.Play();
+
+            GameManager.gm.score--;
+            if (GameManager.gm.shots > 0)
+                GameManager.gm.shots--;
+            GameManager.gm.displayScore();
+        }
+    }
 
     //void incrementShot()
     //{
