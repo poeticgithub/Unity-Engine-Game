@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Text shotCount;
     public int number;
     public int shots = 1;
+    public int index;
 
 
     public GameObject[] thoughtbubbles = new GameObject[6];
@@ -98,7 +99,7 @@ public class GameManager : MonoBehaviour
                 answers[z].text = results[z].ToString();
             }
 
-            int index = rnd.Next(0, 6);
+            index = rnd.Next(0, 6);
             results[index] = result;
             tags[index] = "enemy";
 
@@ -127,7 +128,7 @@ public class GameManager : MonoBehaviour
                 answers[z].text = results[z].ToString();
             }
 
-            int index = rnd.Next(0, 6);
+            index = rnd.Next(0, 6);
             results[index] = result;
             tags[index] = "enemy";
 
@@ -156,7 +157,7 @@ public class GameManager : MonoBehaviour
                 answers[z].text = results[z].ToString();
             }
 
-            int index = rnd.Next(0, 6);
+            index = rnd.Next(0, 6);
             results[index] = result;
             tags[index] = "enemy";
 
