@@ -7,14 +7,16 @@ public class PlayerInput : MonoBehaviour {
 	public Transform Spawnpoint;
 	public AudioSource explosionSound, wrongAnswer;
 	Rigidbody2D clone2;
-	bool inc1 = false;
-	bool inc2 = false;
+	bool inc1;
+	bool inc2;
     
         
 	// Use this for initialization
 	void Start () {
 
         GameManager.gm.displayShots();
+        inc1 = false;
+        inc2 = false;
 
 	}
 
@@ -24,9 +26,10 @@ public class PlayerInput : MonoBehaviour {
         GameManager.gm.displayShots();
 
 
-        if (Input.GetKeyDown (KeyCode.Space) && gameObject.name == "PlayerCharacter" && GameManager.gm.shots > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && gameObject.name == "PlayerCharacter" && GameManager.gm.shots > 0 && GameManager.gm.canShoot == true)
         {
             GameManager.gm.shots--;
+            //GameManager.gm.canShoot = false;
 
            	Rigidbody2D clone;
 			clone = (Rigidbody2D)Instantiate (projectile, transform.position, Quaternion.identity);
@@ -59,16 +62,26 @@ public class PlayerInput : MonoBehaviour {
 			clone2.tag = "explosion";
 
 			GameManager.gm.score = GameManager.gm.score + 1;
-			GameManager.gm.displayScore ();
+            if (GameManager.gm.score > 5 && (inc1 == false))
+            {
+                this.inc1 = true;
+                Respawn3.resp3.setSpeed += -0.001f;
+            }
+            if ((GameManager.gm.score > 10) && (inc2 == false))
+            {
+                this.inc2 = true;
+                Respawn3.resp3.setSpeed += -0.001f;
+            }
+            GameManager.gm.displayScore ();
         
-			if (GameManager.gm.score > 5 && inc1 == false)
+			if (GameManager.gm.score > 5 && (inc1 == false))
           {
-			   inc1 = true;
+			   this.inc1 = true;
 			   Respawn3.resp3.setSpeed += -0.001f;
 			}
-			if ((GameManager.gm.score > 10) && inc2 == false)
+			if ((GameManager.gm.score > 10) && (inc2 == false))
           {
-	         	inc2 = true;
+	         	this.inc2 = true;
 			Respawn3.resp3.setSpeed += -0.001f;
 			}
         }

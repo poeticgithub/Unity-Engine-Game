@@ -7,13 +7,14 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager gm = null;
-    public int score;
-    public Text gameScore;
+    public int score, highscore;
+    public Text gameScore, HighScore;
     public Text question;
     public Text shotCount;
     public int number;
     public int shots = 1;
     public int index;
+    public bool canShoot = true;
 
 
     public GameObject[] thoughtbubbles = new GameObject[6];
@@ -30,9 +31,13 @@ public class GameManager : MonoBehaviour
             //if not, set instance to this
             gm = this;
             score = 0;
+            highscore = PlayerPrefs.GetInt("HighScore");
+            HighScore = GameObject.Find("High Score").GetComponent<Text>();
+            HighScore.text = "High Score: " + highscore.ToString();
         }
         //do not destroy when reloading scene
         DontDestroyOnLoad(transform.gameObject);
+        
     }
 
 
@@ -80,7 +85,7 @@ public class GameManager : MonoBehaviour
 
         System.Random rnd = new System.Random(DateTime.Now.Millisecond);
 
-        number = rnd.Next(1, 4);
+        number = rnd.Next(1, 5);
 
         if (number == 1)
         {
@@ -152,7 +157,34 @@ public class GameManager : MonoBehaviour
 
             for (int z = 0; z < 6; z++)
             {
-                results[z] = result + rnd.Next(3, 15);
+                results[z] = result + rnd.Next(3, 16);
+                tags[z] = "wrong";
+                answers[z].text = results[z].ToString();
+            }
+
+            index = rnd.Next(0, 6);
+            results[index] = result;
+            tags[index] = "enemy";
+
+
+            for (int q = 0; q < 6; q++)
+            {
+                answers[q].text = results[q].ToString();
+            }
+        }
+
+        else if (number == 4)
+        {
+            int x = rnd.Next(1, 21);
+            int y = rnd.Next(2, 6);
+
+            int result = x / y;
+            question = GameObject.Find("Question1").GetComponent<Text>();
+            question.text = "What is : " + x.ToString() + "/" + y.ToString() + " ?";
+
+            for (int z = 0; z < 6; z++)
+            {
+                results[z] = result + rnd.Next(3, 16);
                 tags[z] = "wrong";
                 answers[z].text = results[z].ToString();
             }
@@ -174,12 +206,28 @@ public class GameManager : MonoBehaviour
     {
         gameScore = GameObject.Find("UIScore").GetComponent<Text>();
         gameScore.text = "Score: " + score.ToString();
+        PlayerPrefs.SetInt("Score", score);
+        if (PlayerPrefs.GetInt("Score") > highscore)
+        {
+         PlayerPrefs.SetInt("HighScore", score);
+        }
+        HighScore = GameObject.Find("High Score").GetComponent<Text>();
+        HighScore.text = "High Score: " + highscore.ToString();
+           
     }
 
     public void displayShots()
     {
+
+      
         shotCount = GameObject.Find("Shot Count").GetComponent<Text>();
         shotCount.text = "Shot Count: " + shots.ToString();
+
+        if (shots == 0)
+        {
+            shotCount.color = Color.red;
+            shotCount.text = "No more shots!";
+        }
     }
 
 }

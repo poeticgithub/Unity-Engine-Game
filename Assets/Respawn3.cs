@@ -79,6 +79,7 @@ public class Respawn3 : MonoBehaviour {
 			current.GetComponent<SpriteRenderer> ().color = Color.white;
 		}
 
+        GameManager.gm.canShoot = true;
 	}
 
 }
