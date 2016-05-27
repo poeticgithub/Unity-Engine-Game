@@ -46,7 +46,7 @@ public class PlayerInput : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col){
-		//Debug.Log("collision name = " + col.gameObject.tag);
+        Debug.Log(PlayerPrefs.GetInt("Score"));
 
 		if (col.gameObject.tag == "enemy" && gameObject.tag == "neutron")
         {
@@ -103,10 +103,9 @@ public class PlayerInput : MonoBehaviour {
             col.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             wrongAnswer.Play();
 
-            GameManager.gm.score--;
-            if (GameManager.gm.shots > 0)
-                GameManager.gm.shots--;
-            GameManager.gm.displayScore();
+           if (GameManager.gm.hitpoints > 0)
+                GameManager.gm.hitpoints--;
+           GameManager.gm.displayScore();
         }
     }
 

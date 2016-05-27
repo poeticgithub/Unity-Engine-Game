@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManager gm = null;
     public int score, highscore;
-    public Text gameScore, HighScore;
+    public Text gameScore, HighScore, Hitpoints;
     public Text question;
     public Text shotCount;
     public int number;
-    public int shots = 1;
+    public int shots = 1 , hitpoints = 5;
     public int index;
     public bool canShoot = true;
 
@@ -89,12 +89,15 @@ public class GameManager : MonoBehaviour
 
         if (number == 1)
         {
-            int x = rnd.Next(1, 25);
-            int y = rnd.Next(1, 25);
+			
+			int x = rnd.Next(1, 10);
+			int y = rnd.Next(1, 10);
+			int w = rnd.Next(2, 6);
 
-            int result = x + y;
-            question = GameObject.Find("Question1").GetComponent<Text>();
-            question.text = "What is : " + x.ToString() + " + " + y.ToString() + " ?";
+			 int result = (x + y) * w;
+			 question = GameObject.Find("Question1").GetComponent<Text>();
+			 question.text = "What is : " + x.ToString() + " + " + y.ToString() + " ?";
+			 question.text = "What is : (" + x.ToString() + " + " + y.ToString() + ") * " + w.ToString() + "?";
 
 
             for (int z = 0; z < 6; z++)
@@ -108,7 +111,6 @@ public class GameManager : MonoBehaviour
             results[index] = result;
             tags[index] = "enemy";
 
-
             for (int q = 0; q < 6; q++)
             {
                 answers[q].text = results[q].ToString();
@@ -119,12 +121,12 @@ public class GameManager : MonoBehaviour
 
         else if (number == 2)
         {
-            int x = rnd.Next(50, 126);
-            int y = rnd.Next(25, 50);
+			int x = rnd.Next(1, 15);
+			int y = rnd.Next(1, 15);     
+			int result = x + (2*y);
+		    question = GameObject.Find("Question1").GetComponent<Text>();
+			question.text = "What is : " + x.ToString() + " + 2 * " + y.ToString() + " ?";
 
-            int result = x - y;
-            question = GameObject.Find("Question1").GetComponent<Text>();
-            question.text = "What is : " + x.ToString() + " - " + y.ToString() + " ?";
 
             for (int z = 0; z < 6; z++)
             {
@@ -148,16 +150,17 @@ public class GameManager : MonoBehaviour
 
         else if (number == 3)
         {
-            int x = rnd.Next(1, 15);
-            int y = rnd.Next(1, 15);
+			
+			int x = rnd.Next(1, 10);
+			int y = rnd.Next(1, 10);
 
-            int result = x * y;
-            question = GameObject.Find("Question1").GetComponent<Text>();
-            question.text = "What is : " + x.ToString() + " * " + y.ToString() + " ?";
+			int result = (3*x) - (2*y);
+			question = GameObject.Find("Question1").GetComponent<Text>();
+			question.text = "What is : 3 * " + x.ToString() + " - 2 * " + y.ToString() + " ?";
 
             for (int z = 0; z < 6; z++)
             {
-                results[z] = result + rnd.Next(3, 16);
+                results[z] = result + rnd.Next(3, 15);
                 tags[z] = "wrong";
                 answers[z].text = results[z].ToString();
             }
@@ -174,13 +177,17 @@ public class GameManager : MonoBehaviour
         }
 
         else if (number == 4)
+			
         {
-            int x = rnd.Next(1, 21);
-            int y = rnd.Next(2, 6);
 
-            int result = x / y;
-            question = GameObject.Find("Question1").GetComponent<Text>();
-            question.text = "What is : " + x.ToString() + "/" + y.ToString() + " ?";
+		     int x = rnd.Next(1, 6);
+		     int y = rnd.Next(1, 6);
+
+			 int result = x * y;
+			 double result1 = Math.Pow((double)(x + y), 2);
+			 result = Convert.ToInt32(result1);
+			 question = GameObject.Find("Question1").GetComponent<Text>();
+			 question.text = "What is : (" + x.ToString() + " + " + y.ToString() + ")^2 ?";
 
             for (int z = 0; z < 6; z++)
             {
@@ -210,6 +217,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Score") > highscore)
         {
          PlayerPrefs.SetInt("HighScore", score);
+         UnityEngine.SceneManagement.SceneManager.LoadScene("Reward");
         }
         HighScore = GameObject.Find("High Score").GetComponent<Text>();
         HighScore.text = "High Score: " + highscore.ToString();
@@ -222,11 +230,18 @@ public class GameManager : MonoBehaviour
       
         shotCount = GameObject.Find("Shot Count").GetComponent<Text>();
         shotCount.text = "Shot Count: " + shots.ToString();
+        Hitpoints = GameObject.Find("Hitpoints").GetComponent<Text>();
+        Hitpoints.text = "Hitpoints: " + hitpoints.ToString();
+        if (hitpoints == 1)
+        {
+            Hitpoints.color = Color.red;
+            Hitpoints.text = "1 hitpoint left! Be careful!";
+        }
 
-        if (shots == 0)
+        if (shots == 1)
         {
             shotCount.color = Color.red;
-            shotCount.text = "No more shots!";
+            shotCount.text = "1 shot left!";
         }
     }
 
