@@ -1,7 +1,7 @@
 ## Built With
 [![Unity](https://unity3d.com/)] - The game engine used
 
-# Gadaga (Space Shooter Game)
+# Gadaga (Educational Game)
 
 •	Space shooter meant to be a didactic tool to help children learn the order of operations
 
