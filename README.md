@@ -22,7 +22,8 @@ You can build the game for PC, Mac, or Linux in the Build Settings.
 
 ## Playing the game
 
-Use the left or right arrow keys on your keyboard to move the flying brain. Solve the arithmetic problem, playing careful attention to the order of operations.
+```
+Use the left or right arrow keys on your keyboard to move the flying brain. Solve the arithmetic problem, paying careful attention to the order of operations.
 
 Press the Spacebar to shoot a projectile at the correct answer. 
 
@@ -33,8 +34,7 @@ You have a limited supply of projectiles. If you keep shooting the incorrect ans
 On the other hand, if you shoot a correct answer, you instantly get a confidence boost, and will replenish a projectile. 
 
 The more correct answers you shoot, the faster the thought bubbles will come down.
-
-
+```
 
 ## Tips
 
