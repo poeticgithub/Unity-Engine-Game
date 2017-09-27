@@ -1,5 +1,5 @@
 ## Built With
-[![Unity](https://unity3d.com/)] - The game engine used
+[Unity](https://unity3d.com/) - The game engine used
 
 # Gadaga (Educational Game)
 
@@ -38,7 +38,7 @@ The more correct answers you shoot, the faster the thought bubbles will come dow
 
 ## Tips
 
-[![PEMDAS](https://www.mathsisfun.com/operation-order-pemdas.html)] - The order of operations
+[PEMDAS](https://www.mathsisfun.com/operation-order-pemdas.html) - The order of operations
 
 
 ![gadada2](https://user-images.githubusercontent.com/18449651/30912091-3a816544-a359-11e7-95e4-f56ab59cbacd.jpg)
